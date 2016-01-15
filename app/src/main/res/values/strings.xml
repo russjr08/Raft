@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Raft</string>
     <string name="action_settings">Settings</string>
+    <string name="login_welcome_text">Hello and welcome!\n\nTo get started, you\'ll need to authorize Raft with your DigitalOcean account so that Raft can see your Droplets.\n\n\n To authorize, click the button below (a page will open in your browser).</string>
+    <string name="login_btn_authorize_text">Authorize</string>
 </resources>
