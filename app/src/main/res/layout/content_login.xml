@@ -28,6 +28,7 @@
 
         <Button
             android:text="@string/login_btn_authorize_text"
+            android:id="@+id/activity_login_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
