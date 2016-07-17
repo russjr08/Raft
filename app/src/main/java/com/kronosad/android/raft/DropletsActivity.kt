@@ -4,19 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
-import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import com.kronosad.android.raft.fragments.DropletFragment
 import com.kronosad.android.raft.fragments.SnapshotsFragment
+import kotlinx.android.synthetic.main.activity_droplets.*
 import java.util.*
 
 class DropletsActivity : AppCompatActivity(), DropletFragment.OnFragmentInteractionListener, SnapshotsFragment.OnFragmentInteractionListener {
@@ -41,23 +39,20 @@ class DropletsActivity : AppCompatActivity(), DropletFragment.OnFragmentInteract
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_droplets)
 
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = findViewById(R.id.container) as ViewPager
+        mViewPager = container as ViewPager
         mViewPager!!.adapter = mSectionsPagerAdapter
 
         mSectionsPagerAdapter!!.addFragment(DropletFragment(), "Droplets")
         mSectionsPagerAdapter!!.addFragment(SnapshotsFragment(), "Snapshots")
 
-        val tabLayout = findViewById(R.id.tabs) as TabLayout
-        tabLayout.setupWithViewPager(mViewPager)
+        tabs.setupWithViewPager(mViewPager)
 
-        val fab = findViewById(R.id.fab) as FloatingActionButton
         fab.setOnClickListener { view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show() }
 
     }
