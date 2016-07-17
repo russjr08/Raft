@@ -11,19 +11,28 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
+            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <data
+                    android:host="authorize"
+                    android:scheme="raft" />
 
-                <!-- For OAuth -->
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="raft" android:host="authorize" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".DropletsActivity"
+            android:label="@string/title_activity_droplets"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

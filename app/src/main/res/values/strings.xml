@@ -3,4 +3,10 @@
     <string name="action_settings">Settings</string>
     <string name="login_welcome_text">Hello and welcome!\n\nTo get started, you\'ll need to authorize Raft with your DigitalOcean account so that Raft can see your Droplets.\n\n\n To authorize, click the button below (a page will open in your browser).</string>
     <string name="login_btn_authorize_text">Authorize</string>
+    <string name="title_activity_droplets">Raft</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="frag_snapshots_nyi">Not Yet Implemented :(</string>
 </resources>

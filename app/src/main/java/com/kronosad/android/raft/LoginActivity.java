@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,9 +18,6 @@ import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String OAUTH_URL = "https://cloud.digitalocean.com/v1/oauth/authorize?client_id=ecb4694ef92bcb1991d71a5ebd68af050ffe83bbfedebe811cdb1d425e914a91&redirect_uri=raft://authorize/&response_type=code";
-    private static final String EXTRA_CUSTOM_TABS_SESSION = "android.support.customtabs.extra.SESSION";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +25,14 @@ public class LoginActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        SharedPreferences prefs = getSharedPreferences("Authentication", MODE_PRIVATE);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if(prefs.getString("token", null) != null) {
+            openDropletActivity(prefs.getString("token", null));
+            finish();
+        }
 
         if(getIntent().getAction().equals(Intent.ACTION_VIEW)) {
             retrieveTokenAndPersist();
@@ -45,14 +50,13 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.activity_login_btn)
     public void onLoginBtnClick(View v) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(OAUTH_URL));
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
 
-        Bundle extras = new Bundle();
-        extras.putBinder(EXTRA_CUSTOM_TABS_SESSION,
-                null);
-        intent.putExtras(extras);
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        builder.setToolbarColor(typedValue.data);
 
-        startActivity(intent);
+        builder.build().launchUrl(this, Uri.parse(Constants.OAUTH_URL));
 
     }
 
@@ -79,11 +83,15 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("Authentication", MODE_PRIVATE);
         prefs.edit().putString("token", token).apply();
 
-        openDropletActivity();
+        openDropletActivity(token);
     }
 
-    private void openDropletActivity() {
+    private void openDropletActivity(String token) {
+        Intent intent = new Intent(this, DropletsActivity.class);
 
+        intent.putExtra(Constants.AUTHENTICATION_FINISHED_WITH_TOKEN, token);
+
+        startActivity(intent);
 
         finish(); // Prevent user from going back to this activity.
     }
