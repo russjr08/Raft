@@ -37,6 +37,7 @@ dependencies {
 
     compile 'com.jakewharton:butterknife:7.0.1'
     kapt 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.myjeeva.digitalocean:digitalocean-api-client:2.6'
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

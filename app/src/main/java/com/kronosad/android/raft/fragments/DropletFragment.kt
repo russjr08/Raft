@@ -103,4 +103,4 @@ class DropletFragment : Fragment() {
             return fragment
         }
     }
-}// Required empty public constructor
+}
